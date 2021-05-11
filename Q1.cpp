@@ -136,6 +136,8 @@ int main(){
     myPair <int, float> P(2, 5.5);
     myPair <int, float> P1(2,5.5);
     myPair <int, float> P3;
+    myMap <int, float> M1;
+    M1.isEmpty(M1);
     //P.print();
     //P = P1;
     //P1.print();
