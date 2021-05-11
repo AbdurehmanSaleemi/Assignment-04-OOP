@@ -77,6 +77,61 @@ class myPair{
     } 
 };
 
+template <typename T1, typename T2>
+class myMap{
+
+    private:
+    int size;
+    const int MAX_SIZE = 1000;
+    myPair<T1, T2> *container;
+
+    // object passed is _map
+    public:
+    myMap(){
+        size = 0;
+        if(container != nullptr)
+        {
+            delete [] container;
+            container = nullptr;
+        }
+    }
+
+    myMap(myMap &_map){
+        size = _map.size;
+        container = _map.container;
+    }
+
+    ~myMap(){
+        if (container != nullptr)
+        {
+            delete [] container;
+            container = nullptr;
+        }
+    }
+
+    void operator ==(myMap &_map){
+        size = _map.size;
+        container = new myPair[size];
+
+        for (int i = 0; i < size; i++)
+        {
+            container[i] = _map.container[i];
+        }
+    }
+
+    int isEmpty(myMap &_map){
+        if(_map.size == 0)
+        {
+            return 1;
+        }
+        else
+        {
+            return -1;
+        }
+        return 0;
+    }
+};
+
 int main(){
     myPair <int, float> P(2, 5.5);
     myPair <int, float> P1(2,5.5);
