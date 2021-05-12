@@ -89,11 +89,7 @@ class myMap{
     public:
     myMap(){
         size = 0;
-        if(container != nullptr)
-        {
-            delete [] container;
-            container = nullptr;
-        }
+        container = nullptr;
     }
 
     myMap(myMap &_map){
@@ -111,7 +107,7 @@ class myMap{
 
     void operator ==(myMap &_map){
         size = _map.size;
-        container = new myPair[size];
+        container = new myPair<T1, T2>[size];
 
         for (int i = 0; i < size; i++)
         {
@@ -130,6 +126,14 @@ class myMap{
         }
         return 0;
     }
+
+    void print(){
+        for (int i = 0; i < size; i++)
+        {
+            std::cout << container[i] << std::endl;
+        }
+        
+    }
 };
 
 int main(){
@@ -137,7 +141,7 @@ int main(){
     myPair <int, float> P1(2,5.5);
     myPair <int, float> P3;
     myMap <int, float> M1;
-    M1.isEmpty(M1);
+    std::cout << M1.isEmpty(M1) << std::endl;
     //P.print();
     //P = P1;
     //P1.print();
