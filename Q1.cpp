@@ -7,17 +7,20 @@ class myPair{
     T2 value;
 
     public:
+    static int objCount;
 
     //Default Constructor
     myPair(){
         key = 0;
         value = 0;
+        objCount++;
     }
 
     //Overloaded Constructor
     myPair(T1 a, T2 b){
         key = a;
         value = b;
+        objCount++;
     }
 
     //Copy Constructor
@@ -77,6 +80,9 @@ class myPair{
     } 
 };
 
+template<typename T1, typename T2>
+int myPair<T1, T2>::objCount = 0;
+
 template <typename T1, typename T2>
 class myMap{
 
@@ -105,6 +111,14 @@ class myMap{
         }
     }
 
+    void setSize(){
+        size = myPair<T1,T2>::objCount;
+    }
+
+    void setContainer(myPair<T1,T2> pr, int index){
+        pr = container[index];
+    }
+
     void operator ==(myMap &_map){
         size = _map.size;
         container = new myPair<T1, T2>[size];
@@ -127,13 +141,17 @@ class myMap{
         return 0;
     }
 
-    void print(){
-        for (int i = 0; i < size; i++)
-        {
-            std::cout << container[i] << std::endl;
-        }
-        
+    int getSize(){
+        return size;
     }
+
+    // void print(){
+    //     for (int i = 0; i < size; i++)
+    //     {
+    //         std::cout << container[i] << std::endl;
+    //     }
+        
+    // }
 };
 
 int main(){
@@ -141,7 +159,11 @@ int main(){
     myPair <int, float> P1(2,5.5);
     myPair <int, float> P3;
     myMap <int, float> M1;
+    M1.setSize();
+    M1.setContainer(P,0);
+    std::cout << M1.getSize() << std::endl;
     std::cout << M1.isEmpty(M1) << std::endl;
+    //M1.print();
     //P.print();
     //P = P1;
     //P1.print();
