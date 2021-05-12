@@ -115,7 +115,8 @@ class myMap{
         size = myPair<T1,T2>::objCount;
     }
 
-    void setContainer(myPair<T1,T2> pr, int index){
+    void insert(myPair<T1,T2> pr, int index){
+        container = new myPair<T1,T2>[size];
         pr = container[index];
     }
 
@@ -145,13 +146,12 @@ class myMap{
         return size;
     }
 
-    // void print(){
-    //     for (int i = 0; i < size; i++)
-    //     {
-    //         std::cout << container[i] << std::endl;
-    //     }
-        
-    // }
+    void print(){
+        for (int i = 0; i < size; i++)
+        {
+            std::cout << container[i] << std::endl;
+        }
+    }
 };
 
 int main(){
@@ -160,7 +160,7 @@ int main(){
     myPair <int, float> P3;
     myMap <int, float> M1;
     M1.setSize();
-    M1.setContainer(P,0);
+    M1.insert(P,0);
     std::cout << M1.getSize() << std::endl;
     std::cout << M1.isEmpty(M1) << std::endl;
     //M1.print();
