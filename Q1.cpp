@@ -81,6 +81,10 @@ class myPair{
     int getValue(){
         return value;
     }
+    
+    int getKey(){
+        return key;
+    }
 };
 
 template<typename T1, typename T2>
@@ -92,7 +96,7 @@ class myMap{
     private:
     int size;
     const int MAX_SIZE = 1000;
-    myPair<T1, T2> *container;
+    myPair<T1, T2> *container; //Container is object of myPair Class
 
     // object passed is _map
     public:
@@ -120,10 +124,10 @@ class myMap{
 
     void insert(myPair<T1,T2> pr, int index){
         container = new myPair<T1,T2>[size];
-        pr = container[index];
+        container[index] = pr;
     }
 
-    void operator ==(myMap &_map){
+    void operator ==(myMap<T1,T2> &_map){
         size = _map.size;
         container = new myPair<T1, T2>[size];
 
@@ -192,6 +196,7 @@ int main(){
     M1.insert(P,0);
     std::cout << M1.getSize() << std::endl;
     std::cout << M1.isEmpty(M1) << std::endl;
+    std::cout << M1.getContainer(0).getValue() << std::endl;
     
     //M1.print();
     //P.print();
