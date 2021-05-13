@@ -77,7 +77,10 @@ class myPair{
     void print(){
         std::cout << key << std::endl;
         std::cout << value << std:: endl;
-    } 
+    }
+    int getValue(){
+        return value;
+    }
 };
 
 template<typename T1, typename T2>
@@ -146,6 +149,31 @@ class myMap{
         return size;
     }
 
+    T2 operator [] (T1 k){
+        for (int i = 0; i < getSize(); i++)
+        {
+            if(k == container[i])
+            {
+                return container[i].getValue();
+            }
+        }
+        return 0;
+    }
+
+    void increaseSize(){
+        myPair<T1,T2> *temp = new myPair<T1,T2>[size + 1];
+        for (int i = 0; i < size; i++)
+        {
+            temp[i] = container[i];
+        }
+        delete [] container;
+        container = temp;
+    }
+
+    myPair<T1,T2> getContainer(int index){
+        return container[index];
+    }
+
     void print(){
         for (int i = 0; i < size; i++)
         {
@@ -159,15 +187,17 @@ int main(){
     myPair <int, float> P1(2,5.5);
     myPair <int, float> P3;
     myMap <int, float> M1;
+    myMap <int, float> M2;
     M1.setSize();
     M1.insert(P,0);
     std::cout << M1.getSize() << std::endl;
     std::cout << M1.isEmpty(M1) << std::endl;
+    
     //M1.print();
     //P.print();
     //P = P1;
     //P1.print();
     //P1.swap(P);
     //P1.print();
-    P == P1;
+    //P == P1;
 }
