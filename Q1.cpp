@@ -174,6 +174,17 @@ class myMap{
         container = temp;
     }
 
+    void remove(T1 key){
+        //removing the key and value
+        for (int i = 0; i < size; i++){
+            if (container[i] == key)
+            {
+                container[i] = 0;
+            }
+        }
+        
+    }
+
     myPair<T1,T2> getContainer(int index){
         return container[index];
     }
