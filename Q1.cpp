@@ -30,6 +30,13 @@ class myPair{
     }
 
     //Member Functions
+    void setKey(T1 k){
+        key = k;
+    }
+
+    void setValue(T2 v){
+        value = v;
+    }
 
     //Assignment Operator
     void operator =(myPair& pr){
@@ -124,7 +131,8 @@ class myMap{
 
     void insert(myPair<T1,T2> pr, int index){
         container = new myPair<T1,T2>[size];
-        container[index] = pr;
+        container[index].setKey(pr.getKey());
+        container[index].setValue(pr.getValue());
     }
 
     void operator ==(myMap<T1,T2> &_map){
@@ -177,12 +185,12 @@ class myMap{
     void remove(T1 key){
         //removing the key and value
         for (int i = 0; i < size; i++){
-            if (container[i] == key)
+            if (container[i].getKey() == key)
             {
-                container[i] = 0;
+                container[i].setKey(0);
+                container[i].setValue(0);
             }
         }
-        
     }
 
     myPair<T1,T2> getContainer(int index){
@@ -207,7 +215,7 @@ int main(){
     M1.insert(P,0);
     std::cout << M1.getSize() << std::endl;
     std::cout << M1.isEmpty(M1) << std::endl;
-    std::cout << M1.getContainer(0).getValue() << std::endl;
+    std::cout << M1.getContainer(0).getKey() << std::endl;
     
     //M1.print();
     //P.print();
