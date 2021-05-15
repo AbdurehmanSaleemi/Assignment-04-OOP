@@ -109,7 +109,7 @@ class myMap{
     public:
     myMap(){
         size = 0;
-        container = new myPair<T1, T2>[size];
+        container = nullptr;
     }
 
     myMap(myMap &_map){
@@ -123,9 +123,9 @@ class myMap{
     }
 
     void insert(myPair<T1,T2> pr, int index){
-        container = new myPair<T1,T2>[size];
-        increaseSize(container, size);
-        if(pr.getKey() != container[index].getKey()){
+        container = new myPair<T1,T2>[2];
+        //increaseSize(container, size);
+        if(pr.getKey() != container[index].myPair<T1,T2>::getKey()){
             container[index].myPair<T1,T2>::setKey(pr.getKey());
             container[index].myPair<T1,T2>::setValue(pr.getValue());
             std::cout << container[index].myPair<T1,T2>::getKey() << std::endl;
@@ -200,9 +200,9 @@ class myMap{
         }
     }
 
-    myPair<T1,T2> getContainer(int index){
-        return container[index];
-    }
+    // myPair<T1,T2> *getContainer(int index){
+    //     return container[index];
+    // }
 
     ~myMap(){
         if (container != nullptr)
@@ -224,8 +224,8 @@ int main(){
     M1.insert(P,1);
     // std::cout << M1.getSize() << std::endl;
     // std::cout << M1.isEmpty(M1) << std::endl;
-    // std::cout << M1.getContainer(0).getKey() << std::endl;
-    // std::cout << M1.getContainer(0).getValue() << std::endl;
+    // std::cout << M1.getContainer(0)->getKey() << std::endl;
+    // std::cout << M1.getContainer(0)->getValue() << std::endl;
     
     //M1.print();
     //P.print();
