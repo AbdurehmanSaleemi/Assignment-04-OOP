@@ -122,7 +122,7 @@ class myMap{
     }
 
     void insert(myPair<T1,T2> pr, int index){
-        container = new myPair<T1,T2>[1];
+        container = new myPair<T1,T2>[1]; // settin one for test purposes
         container[index].myPair<T1,T2>::setValue(pr.getValue());
         container[index].myPair<T1,T2>::setKey(pr.getKey());
     }
