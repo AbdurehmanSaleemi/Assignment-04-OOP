@@ -122,15 +122,18 @@ class myMap{
         size = 5;
     }
 
+    void operator =(myPair<T1,T2> &pr){
+    }
+
     void insert(myPair<T1,T2> pr, int index){
         container = new myPair<T1,T2>[2];
         //increaseSize(container, size);
         if(pr.getKey() != container[index].myPair<T1,T2>::getKey()){
             container[index].myPair<T1,T2>::setKey(pr.getKey());
             container[index].myPair<T1,T2>::setValue(pr.getValue());
-            std::cout << container[index].myPair<T1,T2>::getKey() << std::endl;
+            //std::cout << container[index].myPair<T1,T2>::getKey() << std::endl;
         }
-        else if(pr.getKey() == container[index].getKey()){
+        else if(pr.getKey() == container[index].myPair<T1,T2>::getKey()){
             std::cout << "Key Already Exists at " << index << std::endl;
         }
     }
@@ -216,7 +219,7 @@ class myMap{
 int main(){
     myPair <int, float> P(2, 5.5);
     myPair <int, float> P1(2,5.5);
-    myPair <int, float> P3;
+    myPair <int, float> P3(P1);
     myMap <int, float> M1;
     myMap <int, float> M2;
     M1.setSize();
@@ -234,4 +237,5 @@ int main(){
     //P1.swap(P);
     //P1.print();
     //P == P1;
+    P3.print();
 }
