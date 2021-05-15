@@ -122,23 +122,27 @@ class myMap{
         size = 5;
     }
 
-    void operator =(myPair<T1,T2> &pr){
-    }
+    void insert(myPair<T1,T2> &pr, int index){
 
-    void insert(myPair<T1,T2> pr, int index){
-        container = new myPair<T1,T2>[2];
-        //increaseSize(container, size);
-        if(pr.getKey() != container[index].myPair<T1,T2>::getKey()){
+        bool keyCheck = true;
+        container = new myPair<T1,T2>[size];
+        increaseSize(container, size);
+
+        for (int i = 0; i < getSize() || keyCheck == true; i++){
+            if(pr.getKey() == container[i].myPair<T1,T2>::getKey()){
+                keyCheck = false;
+            }
+        }
+        if(keyCheck == true){
             container[index].myPair<T1,T2>::setKey(pr.getKey());
             container[index].myPair<T1,T2>::setValue(pr.getValue());
-            //std::cout << container[index].myPair<T1,T2>::getKey() << std::endl;
         }
-        else if(pr.getKey() == container[index].myPair<T1,T2>::getKey()){
-            std::cout << "Key Already Exists at " << index << std::endl;
+        else{
+            std::cout << "Key Already Exists" << std::endl;
         }
     }
 
-    void operator ==(myMap<T1,T2> &_map){
+    void operator =(myMap<T1,T2> &_map){
         size = _map.size;
         container = new myPair<T1, T2>[_map.size];
 
@@ -170,13 +174,13 @@ class myMap{
                 return i;
             }
         }
-        // for (int i = 0; i < getSize(); i++){
-        //     if(i == getSize()){
-        //         if(k != container[i]){
+        for (int i = 0; i < getSize(); i++){
+            if(i == getSize()){
+                if(k != container[i]){
                     
-        //         }
-        //     }
-        // }
+                }
+            }
+        }
         return 0;
     }
 
@@ -190,6 +194,8 @@ class myMap{
         delete [] container;
         container = temp;
         size = newSize;
+    }myPair<T1,T2> getContainer(int index){
+        return container[index];
     }
 
     void remove(T1 key){
@@ -203,9 +209,10 @@ class myMap{
         }
     }
 
-    // myPair<T1,T2> *getContainer(int index){
-    //     return container[index];
-    // }
+    void print(int index){
+        std::cout << container[index].getValue() << std::endl;
+        std::cout << container[index].getKey() << std::endl;
+    }
 
     ~myMap(){
         if (container != nullptr)
@@ -217,9 +224,9 @@ class myMap{
 };
 
 int main(){
-    myPair <int, float> P(2, 5.5);
-    myPair <int, float> P1(2,5.5);
-    myPair <int, float> P3(P1);
+    myPair <int, float> P(1, 5.5);
+    myPair <int, float> P1(1,5.5);
+    myPair <int, float> P3;
     myMap <int, float> M1;
     myMap <int, float> M2;
     M1.setSize();
@@ -227,8 +234,8 @@ int main(){
     M1.insert(P,1);
     // std::cout << M1.getSize() << std::endl;
     // std::cout << M1.isEmpty(M1) << std::endl;
-    // std::cout << M1.getContainer(0)->getKey() << std::endl;
-    // std::cout << M1.getContainer(0)->getValue() << std::endl;
+    M1.print(1);
+    M1.print(0);
     
     //M1.print();
     //P.print();
@@ -237,5 +244,4 @@ int main(){
     //P1.swap(P);
     //P1.print();
     //P == P1;
-    P3.print();
 }
