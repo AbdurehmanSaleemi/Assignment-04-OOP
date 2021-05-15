@@ -109,7 +109,7 @@ class myMap{
     public:
     myMap(){
         size = 0;
-        container = nullptr;
+        container = new myPair<T1, T2>[size];
     }
 
     myMap(myMap &_map){
@@ -118,13 +118,21 @@ class myMap{
     }
 
     void setSize(){
-        size = myPair<T1,T2>::objCount;
+        // size = myPair<T1,T2>::objCount;
+        size = 5;
     }
 
     void insert(myPair<T1,T2> pr, int index){
-        container = new myPair<T1,T2>[1]; // settin one for test purposes
-        container[index].myPair<T1,T2>::setValue(pr.getValue());
-        container[index].myPair<T1,T2>::setKey(pr.getKey());
+        container = new myPair<T1,T2>[size];
+        increaseSize(container, size);
+        if(pr.getKey() != container[index].getKey()){
+            container[index].myPair<T1,T2>::setKey(pr.getKey());
+            container[index].myPair<T1,T2>::setValue(pr.getValue());
+            std::cout << container[index].myPair<T1,T2>::getKey() << std::endl;
+        }
+        else if(pr.getKey() == container[index].getKey()){
+            std::cout << "Key Already Exists at " << index << std::endl;
+        }
     }
 
     void operator ==(myMap<T1,T2> &_map){
@@ -138,12 +146,10 @@ class myMap{
     }
 
     int isEmpty(myMap &_map){
-        if(_map.size == 0)
-        {
+        if(_map.size == 0){
             return 1;
         }
-        else
-        {
+        else{
             return -1;
         }
         return 0;
@@ -171,14 +177,16 @@ class myMap{
         return 0;
     }
 
-    void increaseSize(){
-        myPair<T1,T2> *temp = new myPair<T1,T2>[size + 1];
+    void increaseSize(myPair<T1,T2> *&container, int newSize){
+        newSize = size + 1;
+        myPair<T1,T2> *temp = new myPair<T1,T2>[newSize];
         for (int i = 0; i < size; i++)
         {
             temp[i] = container[i];
         }
         delete [] container;
         container = temp;
+        size = newSize;
     }
 
     void remove(T1 key){
@@ -196,12 +204,6 @@ class myMap{
         return container[index];
     }
 
-    void print(){
-        for (int i = 0; i < size; i++)
-        {
-            std::cout << container[i] << std::endl;
-        }
-    }
     ~myMap(){
         if (container != nullptr)
         {
@@ -212,17 +214,18 @@ class myMap{
 };
 
 int main(){
-    myPair <int, int> P(2, 5.5);
+    myPair <int, float> P(2, 5.5);
     myPair <int, float> P1(2,5.5);
     myPair <int, float> P3;
     myMap <int, float> M1;
     myMap <int, float> M2;
     M1.setSize();
-    M1.insert(P1,1);
-    std::cout << M1.getSize() << std::endl;
-    std::cout << M1.isEmpty(M1) << std::endl;
-    std::cout << M1.getContainer(1).getKey() << std::endl;
-    std::cout << M1.getContainer(1).getValue() << std::endl;
+    M1.insert(P1,0);
+    M1.insert(P,1);
+    // std::cout << M1.getSize() << std::endl;
+    // std::cout << M1.isEmpty(M1) << std::endl;
+    // std::cout << M1.getContainer(0).getKey() << std::endl;
+    // std::cout << M1.getContainer(0).getValue() << std::endl;
     
     //M1.print();
     //P.print();
