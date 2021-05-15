@@ -117,27 +117,19 @@ class myMap{
         container = _map.container;
     }
 
-    ~myMap(){
-        if (container != nullptr)
-        {
-            delete [] container;
-            container = nullptr;
-        }
-    }
-
     void setSize(){
         size = myPair<T1,T2>::objCount;
     }
 
     void insert(myPair<T1,T2> pr, int index){
-        container = new myPair<T1,T2>[size];
-        container[index].setKey(pr.getKey());
-        container[index].setValue(pr.getValue());
+        container = new myPair<T1,T2>[1];
+        container[index].myPair<T1,T2>::setValue(pr.getValue());
+        container[index].myPair<T1,T2>::setKey(pr.getKey());
     }
 
     void operator ==(myMap<T1,T2> &_map){
         size = _map.size;
-        container = new myPair<T1, T2>[size];
+        container = new myPair<T1, T2>[_map.size];
 
         for (int i = 0; i < size; i++)
         {
@@ -161,14 +153,21 @@ class myMap{
         return size;
     }
 
-    T2 operator [] (T1 k){
+    T2 &operator [] (T1 k){
         for (int i = 0; i < getSize(); i++)
         {
             if(k == container[i])
             {
-                return container[i].getValue();
+                return i;
             }
         }
+        // for (int i = 0; i < getSize(); i++){
+        //     if(i == getSize()){
+        //         if(k != container[i]){
+                    
+        //         }
+        //     }
+        // }
         return 0;
     }
 
@@ -203,19 +202,27 @@ class myMap{
             std::cout << container[i] << std::endl;
         }
     }
+    ~myMap(){
+        if (container != nullptr)
+        {
+            delete [] container;
+            container = nullptr;
+        }
+    }
 };
 
 int main(){
-    myPair <int, float> P(2, 5.5);
+    myPair <int, int> P(2, 5.5);
     myPair <int, float> P1(2,5.5);
     myPair <int, float> P3;
     myMap <int, float> M1;
     myMap <int, float> M2;
     M1.setSize();
-    M1.insert(P,0);
+    M1.insert(P1,1);
     std::cout << M1.getSize() << std::endl;
     std::cout << M1.isEmpty(M1) << std::endl;
-    std::cout << M1.getContainer(0).getKey() << std::endl;
+    std::cout << M1.getContainer(1).getKey() << std::endl;
+    std::cout << M1.getContainer(1).getValue() << std::endl;
     
     //M1.print();
     //P.print();
