@@ -85,11 +85,11 @@ class myPair{
         std::cout << key << std::endl;
         std::cout << value << std:: endl;
     }
-    int getValue() const {
+    T2 getValue() const {
         return value;
     }
     
-    int getKey() const{
+    T1 getKey() const{
         return key;
     }
 };
@@ -190,9 +190,9 @@ class myMap{
         {
             temp[i] = container[i];
         }
+        size = newSize;
         delete [] container;
         container = temp;
-        size = newSize;
     }
 
     myPair<T1,T2> getContainer(int index){
@@ -211,7 +211,7 @@ class myMap{
     }
 
     void print(int index){
-        std::cout << container[index].getValue() << container[index].getKey() << std::endl;
+        std::cout << container[index].getValue() << " " << container[index].getKey() << std::endl;
     }
 
     ~myMap(){
@@ -225,7 +225,7 @@ class myMap{
 
 int main(){
     myPair <int, float> P(1, 5.5);
-    myPair <int, float> P1(1,5.5);
+    myPair <int, float> P1(2,5.5);
     myPair <int, float> P3;
     myMap <int, float> M1;
     myMap <int, float> M2;
