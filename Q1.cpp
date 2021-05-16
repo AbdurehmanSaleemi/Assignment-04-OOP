@@ -85,11 +85,11 @@ class myPair{
         std::cout << key << std::endl;
         std::cout << value << std:: endl;
     }
-    int getValue(){
+    int getValue() const {
         return value;
     }
     
-    int getKey(){
+    int getKey() const{
         return key;
     }
 };
@@ -118,22 +118,21 @@ class myMap{
     }
 
     void setSize(){
-        // size = myPair<T1,T2>::objCount;
-        size = 5;
+        size = myPair<T1,T2>::objCount;
     }
 
     void insert(myPair<T1,T2> &pr, int index){
 
         bool keyCheck = true;
         container = new myPair<T1,T2>[size];
-        increaseSize(container, size);
+        increaseSize(size);
 
         for (int i = 0; i < getSize() || keyCheck == true; i++){
             if(pr.getKey() == container[i].myPair<T1,T2>::getKey()){
                 keyCheck = false;
             }
         }
-        if(keyCheck == true){
+        if(keyCheck == false){
             container[index].myPair<T1,T2>::setKey(pr.getKey());
             container[index].myPair<T1,T2>::setValue(pr.getValue());
         }
@@ -184,7 +183,7 @@ class myMap{
         return 0;
     }
 
-    void increaseSize(myPair<T1,T2> *&container, int newSize){
+    void increaseSize(int newSize){
         newSize = size + 1;
         myPair<T1,T2> *temp = new myPair<T1,T2>[newSize];
         for (int i = 0; i < size; i++)
@@ -194,7 +193,9 @@ class myMap{
         delete [] container;
         container = temp;
         size = newSize;
-    }myPair<T1,T2> getContainer(int index){
+    }
+
+    myPair<T1,T2> getContainer(int index){
         return container[index];
     }
 
@@ -210,8 +211,7 @@ class myMap{
     }
 
     void print(int index){
-        std::cout << container[index].getValue() << std::endl;
-        std::cout << container[index].getKey() << std::endl;
+        std::cout << container[index].getValue() << container[index].getKey() << std::endl;
     }
 
     ~myMap(){
