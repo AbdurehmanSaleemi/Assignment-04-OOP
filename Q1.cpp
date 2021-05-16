@@ -118,23 +118,22 @@ public:
     }
 
     void setSize() {
-        size = myPair<T1, T2>::objCount;
+        size = 1;
     }
 
     void insert(myPair<T1, T2>& pr, int index) {
 
         bool keyCheck = true;
-        //container = new myPair<T1, T2>[size];
         size++;
         increaseSize(container, size);
 
         for (int i = 0; i < getSize(); i++) {
-            if (pr.getKey() != container[i].myPair<T1,T2>::getKey()){
+            if (pr.getKey() == container[i].myPair<T1,T2>::getKey()){
                 keyCheck = false;
                 break;
             }
         }
-        if (keyCheck == false){
+        if (keyCheck == true){
             container[index].myPair<T1, T2>::setKey(pr.getKey());
             container[index].myPair<T1, T2>::setValue(pr.getValue());
         }
@@ -167,31 +166,36 @@ public:
         return size;
     }
 
-    T2& operator [] (T1 k) {
+    T2 operator [] (T1 k){
+
+        bool isFound = false;
         for (int i = 0; i < getSize(); i++)
         {
-            if (k == container[i])
+            if(k == container[i].myPair<T1, T2>::getKey()){
+                isFound = true;
+                std::cout << "Match Found" << std::endl;
+                return container[i].myPair<T1, T2>::getValue();
+                break;
+            }
+            else if(i == getSize() && isFound == false)
             {
-                return i;
+                size++;
+                increaseSize(container,size);
+                container[size].myPair<T1, T2>::setValue(0);
+                container[size].myPair<T1, T2>::setKey(k);
+                std::cout << "Match not Found. Inserted a new value in container" << std::endl;
+                return container[size].myPair<T1, T2>::getValue();
             }
         }
-        for (int i = 0; i < getSize(); i++) {
-            if (i == getSize()) {
-                if (k != container[i]) {
-
-                }
-            }
-        }
-        return 0;
+        return container[0].myPair<T1, T2>::getValue();
     }
-
     void increaseSize(myPair<T1,T2>*& arr, int oldSize) {
         int n = oldSize;
         myPair<T1,T2>* tempArr = new myPair<T1,T2>[n];
         for (int i = 0; i < oldSize; i++)
         {
-            tempArr[i].myPair::setKey(container[i].myPair::getKey());
-            tempArr[i].myPair::setValue(container[i].myPair::getValue());
+            tempArr[i].myPair<T1,T2>::setKey(container[i].myPair<T1, T2>::getKey());
+            tempArr[i].myPair<T1, T2>::setValue(container[i].myPair<T1, T2>::getValue());
         }
         oldSize = n;
         delete[] arr;
@@ -203,14 +207,30 @@ public:
     }
 
     void remove(T1 key) {
-        //removing the key and value
-        for (int i = 0; i < size; i++) {
-            if (container[i].getKey() == key)
+        
+        int index; // storing the index of the key to be removed
+        for (int i = 0; i < getSize(); i++) {
+            if (container[i].myPair<T1, T2>::getKey() == key)
             {
-                container[i].setKey(0);
-                container[i].setValue(0);
+                index = i;
             }
         }
+        int n = size - 1;
+        myPair<T1,T2> *tempArr = new myPair<T1, T2>[n];
+        for (int i = index; i < getSize(); i++)
+        {
+            myPair<T1, T2> temp(container[i]);
+            container[i].myPair<T1, T2>::setKey(container[i + 1].myPair<T1, T2>::getKey());
+            container[i + 1] = temp;
+        }
+        for (int i = 0; i < n; i++)
+        {
+            tempArr[i].myPair<T1, T2>::setKey(container[i].myPair<T1, T2>::getKey());
+            tempArr[i].myPair<T1, T2>::setValue(container[i].myPair<T1, T2>::getValue());
+        }
+        size = n;
+        delete [] container;
+        container = tempArr;
     }
 
     void print(int index) {
@@ -228,17 +248,23 @@ public:
 int main() {
     myPair <int, float> P(1, 5.5);
     myPair <int, float> P1(2, 4.5);
-    myPair <int, float> P3;
+    myPair <int, float> P2(3, 1.5);
     myMap <int, float> M1;
     myMap <int, float> M2;
     M1.setSize();
     M1.insert(P1, 1);
     M1.insert(P, 2);
+    M1.insert(P2, 3);
     // std::cout << M1.getSize() << std::endl;
     // std::cout << M1.isEmpty(M1) << std::endl;
     M1.print(1);
     M1.print(2);
-
+    M1.print(3);
+    std::cout << M1[4] << std::endl;
+    M1.remove(1);
+    M1.print(1);
+    M1.print(3);
+    std::cout << M1.getSize() << std::endl;
     //M1.print();
     //P.print();
     //P = P1;
