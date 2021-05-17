@@ -306,6 +306,7 @@ int main() {
     //M1.insert(P2, 3);
     // std::cout << M1.getSize() << std::endl;
     // std::cout << M1.isEmpty(M1) << std::endl;
+<<<<<<< HEAD
     //M1.print(1);
     // M1.print(2);
     // M1.print(3);
@@ -320,6 +321,16 @@ int main() {
 
 
     
+=======
+    // M1.print(1);
+    // M1.print(2);
+    // M1.print(3);
+    // std::cout << M1[4] << std::endl;
+    M1.remove(2);
+    M1.print(1);
+    M1.print(2);
+    std::cout << M1.getSize() << std::endl;
+>>>>>>> 12b3fbf16a2a6156005c0ee568ffcb104ad8cbc8
     //M1.print();
     //P.print();
     //P = P1;
