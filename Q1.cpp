@@ -46,8 +46,8 @@ public:
     }
 
     void swap(myPair& pr) {
-        key = pr.key;
-        value = pr.value;
+        key = this -> key;
+        value = this -> value;
     }
 
     void operator ==(myPair& pr) {
@@ -213,6 +213,7 @@ public:
             if (container[i].myPair<T1, T2>::getKey() == key)
             {
                 index = i;
+                break;
             }
         }
         int n = size - 1;
@@ -221,14 +222,16 @@ public:
         {
             myPair<T1, T2> temp(container[i]);
             container[i].myPair<T1, T2>::setKey(container[i + 1].myPair<T1, T2>::getKey());
-            container[i + 1] = temp;
+            container[i + 1].myPair<T1, T2>::setKey(temp.getKey());
+            container[i].myPair<T1, T2>::setValue(container[i + 1].myPair<T1, T2>::getValue());
+            container[i + 1].myPair<T1, T2>::setValue(temp.getValue());
         }
         for (int i = 0; i < n; i++)
         {
             tempArr[i].myPair<T1, T2>::setKey(container[i].myPair<T1, T2>::getKey());
             tempArr[i].myPair<T1, T2>::setValue(container[i].myPair<T1, T2>::getValue());
         }
-        size = n;
+        size = n - 1;
         delete [] container;
         container = tempArr;
     }
@@ -236,6 +239,27 @@ public:
     void print(int index) {
         std::cout << container[index].getKey() << " " << container[index].getValue() << std::endl;
     }
+
+    void clear(){
+        int newSize = 0;
+        myPair<T1, T2> *temp = new myPair<T1, T2> [size];
+        size = newSize;
+        delete [] container;
+        container = temp;
+    }
+
+    myPair<T1, T2> findKey(T1 _key){
+        for (int i = 0; i < getSize(); i++)
+        {
+            if(_key == container[i].myPair<T1, T2>::getKey()){
+                container[i].myPair<T1, T2>::print();
+                return container[i];
+            }
+        }
+        return container[1];
+    }
+
+    friend myMap<T1,T2> operator +(myMap<T1, T2> map_, myMap<T1,T2> map_s);
 
     ~myMap() {
         if (container != nullptr){
@@ -245,26 +269,57 @@ public:
     }
 };
 
+template <typename T1, typename T2>
+myMap<T1, T2> operator +(myMap<T1,T2> &map_, myMap<T1,T2> &map_s){
+    myMap<T1,T2> temp;
+    myPair<T1,T2> tempPair;
+    for(int i = 0; i < (map_.getSize() + map_s.getSize()); i++){
+        if(map_.getContainer[i].myPair<T1,T2>::getKey() == map_s.getContainer[i].myPair<T1,T2>:::getKey()){
+            tempPair.setKey = map_s.getContainer[i].myPair<T1,T2>::getKey();
+            tempPair.setValue = map_s.getContainer[i].myPair<T1, T2>::getValue();
+            temp.insert(tempPair, i);
+        }
+        else{
+            tempPair.setKey = map_s.getContainer[i].myPair<T1, T2>::getKey();
+            tempPair.setValue = map_s.getContainer[i].myPair<T1, T2>::getValue();
+            temp.insert(tempPair,i);
+            tempPair.setKey = map_.getContainer[i].myPair<T1, T2>::getKey();
+            tempPair.setValue = map_.getContainer[i].myPair<T1, T2>::getValue();
+            temp.insert(tempPair,i);
+        }
+    }
+    return temp;
+}
+
 int main() {
     myPair <int, float> P(1, 5.5);
     myPair <int, float> P1(2, 4.5);
     myPair <int, float> P2(3, 1.5);
     myMap <int, float> M1;
     myMap <int, float> M2;
+    myMap <int, float> M3;
     M1.setSize();
+    M2.setSize();
     M1.insert(P1, 1);
-    M1.insert(P, 2);
-    M1.insert(P2, 3);
+    M2.insert(P, 2);
+    M3 = M1 + M2;
+    //M1.insert(P2, 3);
     // std::cout << M1.getSize() << std::endl;
     // std::cout << M1.isEmpty(M1) << std::endl;
-    M1.print(1);
-    M1.print(2);
-    M1.print(3);
-    std::cout << M1[4] << std::endl;
-    M1.remove(1);
-    M1.print(1);
-    M1.print(3);
-    std::cout << M1.getSize() << std::endl;
+    //M1.print(1);
+    // M1.print(2);
+    // M1.print(3);
+    // std::cout << M1[4] << std::endl;
+    // M1.remove(2);
+    // M1.print(1);
+    // M1.print(2);
+    // M1.clear();
+    //std::cout << M1.getSize() << std::endl;
+    //M1.findKey(2);
+
+
+
+    
     //M1.print();
     //P.print();
     //P = P1;
