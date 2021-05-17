@@ -213,6 +213,7 @@ public:
             if (container[i].myPair<T1, T2>::getKey() == key)
             {
                 index = i;
+                break;
             }
         }
         int n = size - 1;
@@ -221,14 +222,16 @@ public:
         {
             myPair<T1, T2> temp(container[i]);
             container[i].myPair<T1, T2>::setKey(container[i + 1].myPair<T1, T2>::getKey());
-            container[i + 1] = temp;
+            container[i + 1].myPair<T1, T2>::setKey(temp.getKey());
+            container[i].myPair<T1, T2>::setValue(container[i + 1].myPair<T1, T2>::getValue());
+            container[i + 1].myPair<T1, T2>::setValue(temp.getValue());
         }
         for (int i = 0; i < n; i++)
         {
             tempArr[i].myPair<T1, T2>::setKey(container[i].myPair<T1, T2>::getKey());
             tempArr[i].myPair<T1, T2>::setValue(container[i].myPair<T1, T2>::getValue());
         }
-        size = n;
+        size = n - 1;
         delete [] container;
         container = tempArr;
     }
@@ -257,13 +260,13 @@ int main() {
     M1.insert(P2, 3);
     // std::cout << M1.getSize() << std::endl;
     // std::cout << M1.isEmpty(M1) << std::endl;
+    // M1.print(1);
+    // M1.print(2);
+    // M1.print(3);
+    // std::cout << M1[4] << std::endl;
+    M1.remove(2);
     M1.print(1);
     M1.print(2);
-    M1.print(3);
-    std::cout << M1[4] << std::endl;
-    M1.remove(1);
-    M1.print(1);
-    M1.print(3);
     std::cout << M1.getSize() << std::endl;
     //M1.print();
     //P.print();
