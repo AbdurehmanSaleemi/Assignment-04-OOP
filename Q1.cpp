@@ -154,14 +154,15 @@ public:
             std::cout << "Key Already Exists" << std::endl;
         }
     }
-
-    void operator =(const myMap<T1, T2>& _map) {
-        //myMap<T1, T2> temp;
-        size = this -> size;
+    myMap<T1, T2> operator =(const myMap<T1, T2>& _map) {
+        myMap<T1, T2> temp;
+        temp.size = size;
+        temp.setSize();
         for (int i = 0; i < _map.size; i++)
         {
-            insert(_map.container[i], i);
+            temp.insert(_map.container[i], i);
         }
+        return temp;
     }
 
     int isEmpty(myMap& _map) {
