@@ -103,7 +103,7 @@ public:
     }
 
     T1 getKey(){
-        return key;
+         return key;
     }
 };
 
@@ -157,7 +157,6 @@ public:
     myMap<T1, T2> operator =(const myMap<T1, T2>& _map) {
         myMap<T1, T2> temp;
         temp.size = size;
-        temp.setSize();
         for (int i = 0; i < _map.size; i++)
         {
             temp.insert(_map.container[i], i);
@@ -287,9 +286,9 @@ public:
 };
 
 template <typename t1, typename t2>
-myMap<t1, t2> operator +(const myMap<t1,t2> &map_,const myMap<t1,t2> &map_s){
+myMap<t1, t2> operator +(const myMap<t1,t2> &map_, const myMap<t1,t2> &map_s){
     myMap<t1,t2> temp;
-    temp.setSize();
+    //temp.setSize();
     myPair<t1,t2> tempPair;
     for(int i = 0; i < (map_.getSize() + map_s.getSize()); i++){
         if(map_.getContainer(i).myPair<t1,t2>::getKey() == map_s.getContainer(i).myPair<t1,t2>::getKey()){
