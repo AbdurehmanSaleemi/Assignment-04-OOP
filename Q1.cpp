@@ -260,6 +260,29 @@ public:
         container = temp;
     }
 
+    void getContainerKeys(){
+        T1 *temp = new T1[getSize()];
+        for(int i = 0; i < getSize();i++){
+            temp[i] = container[i].myPair<T1, T2>::getKey();
+        }
+        for (int i = 0; i < getSize(); i++)
+        {
+            std::cout << temp[i] << std::endl;
+        }
+        
+    }
+
+    void getContainerValue(){
+        T2 *temp = new T2[getSize()];
+        for(int i = 0; i < getSize();i++){
+            temp[i] = container[i].myPair<T1, T2>::getValue();
+        }
+        for (int i = 0; i < getSize(); i++)
+        {
+            std::cout << temp[i] << std::endl;
+        }
+    }
+
     myPair<T1, T2> findKey(T1 _key){
         for (int i = 0; i < getSize(); i++)
         {
@@ -276,6 +299,8 @@ public:
     friend void operator ==(myMap<_t1, _t2> &map_, myMap<_t1, _t2> &_map);
     template <typename t1, typename t2>
     friend myMap<t1, t2> operator +(myMap<t1, t2> &map_, myMap<t1,t2> &map_s);
+    template <typename t1, typename t2>
+    friend void operator !=(myMap<t1, t2> &map_, myMap<t1,t2> &map_s);
 
     ~myMap() {
         if (container != nullptr){
@@ -284,6 +309,16 @@ public:
         }
     }
 };
+
+template <typename t1, typename t2>
+void operator !=(myMap<t1, t2> &map_, myMap<t1,t2> &map_s){
+    if(map_.getSize() != map_s.getSize()){
+        std::cout << "Yes they are not equal" << std::endl;
+    }
+    else{
+        std::cout << "Yes they are equal" << std::endl;
+    }
+}
 
 template <typename t1, typename t2>
 myMap<t1, t2> operator +(const myMap<t1,t2> &map_, const myMap<t1,t2> &map_s){
@@ -344,10 +379,13 @@ int main() {
     M1.insert(P, 1);
     M1.insert(P2, 2);
     M2.insert(P,0);
+    //M1 != M2;
+    //M1.getContainerKeys();
+    M1.getContainerValue();
 
-    M3.setSize();
-    M3 = M1 + M2;
-    std::cout << M3 << std::endl;
+    // M3.setSize();
+    //M3 = M1 + M2;
+    // std::cout << M3 << std::endl;
     //M1 == M2;
 
     // P.swap(P1);
