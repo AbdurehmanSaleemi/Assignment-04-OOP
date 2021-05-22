@@ -272,6 +272,16 @@ public:
         
     }
 
+    bool isFull(){
+        if(getSize() == MAX_SIZE){
+            return true;
+        }
+        else{
+            return false;
+        }
+        return true;
+    }
+
     void getContainerValue(){
         T2 *temp = new T2[getSize()];
         for(int i = 0; i < getSize();i++){
