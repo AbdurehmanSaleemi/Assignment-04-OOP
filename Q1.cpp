@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 
 template <class T1, class T2>
 class myPair {
@@ -42,17 +43,7 @@ public:
     void operator =(myPair& pr) {
         pr.key = key;
         pr.value = value;
-        //return *this;
     }
-    // void swap(myPair& pr) {
-    //     myPair <T1, T2> temp;
-    //     temp.key = pr.key;
-    //     temp.value = pr.value;
-    //     pr.key = getKey();
-    //     pr.value getValue();
-    //     key = temp.key;
-    //     va
-    // }
 
     void swap(myPair<T1, T2> &a)
     {
@@ -273,6 +264,24 @@ public:
         container = temp;
     }
 
+    void sortContainer(){
+        myPair<T1, T2> temp;
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                if(container[j].myPair<T1, T2>::getKey() > container[j + 1].myPair<T1, T2>::getKey()){
+                    temp.setKey(container[j].myPair<T1, T2>::getKey());
+                    temp.setValue(container[j].myPair<T1, T2>::getValue());
+                    container[j].myPair<T1, T2>::setKey(container[j + 1].myPair<T1, T2>::getKey());
+                    container[j].myPair<T1, T2>::setValue(container[j + 1].myPair<T1,T2>::getValue());
+                    container[j + 1].myPair<T1, T2>::setKey(temp.getKey());
+                    container[j + 1].myPair<T1, T2>::setValue(temp.getValue());
+                }
+            }
+        }
+    }
+
     //TO get all container keys
     void getContainerKeys(){
         T1 *temp = new T1[getSize()];
@@ -282,7 +291,20 @@ public:
         for (int i = 0; i < getSize(); i++)
         {
             std::cout << temp[i] << std::endl;
+        }       
+    }
+
+    void toString(){
+        std::stringstream ContainerDataKey;
+        std::stringstream ContainerDataValue;
+        std::string data;
+        for (int i = 0; i < getSize(); i++)
+        {
+            ContainerDataKey << container[i].myPair<T1, T2>::getKey() << " , " << container[i].myPair<T1, T2>::getValue();
+            ContainerDataKey >> data;
+            std::cout << data;
         }
+        std::cout << std::endl;
         
     }
 
@@ -376,9 +398,11 @@ myMap<t1, t2> operator +(const myMap<t1,t2> &map_, const myMap<t1,t2> &map_s){
 template<typename t1, typename t2>
 std::ostream& operator <<(std::ostream &out, const myMap<t1, t2> &map){
     int total = map.size;
+    out << "Key" << "  " << "Value";
+    std::cout << std::endl;
     for (int i = 0; i < total; i++)
     {
-        out << map.container[i].myPair<t1, t2>::getKey() << " " << map.container[i].myPair<t1, t2>::getValue();
+        out << map.container[i].myPair<t1, t2>::getKey() << "     " << map.container[i].myPair<t1, t2>::getValue();
         std::cout << std::endl;
     }
     return out;
@@ -393,7 +417,6 @@ void operator ==(myMap<_t1, _t2> &map_, myMap<_t1, _t2> &_map){
     else{
         std::cout << "Maps are Not Equal" << std::endl;
     }
-    
 }
 
 int main() {
@@ -405,17 +428,19 @@ int main() {
     myMap <int, float> M3;
     M1.setSize();
     M2.setSize();
-    M1.insert(P1, 0);
     M1.insert(P, 1);
+    M1.insert(P1, 0);
     M1.insert(P2, 2);
-    M2.insert(P,0);
+    //M2.insert(P,0);
     //M1 != M2;
     //M1.getContainerKeys();
-    M1.getContainerValue();
+    //M1.getContainerValue();
 
     // M3.setSize();
     //M3 = M1 + M2;
-    // std::cout << M3 << std::endl;
+    //M1.sortContainer();
+    //std::cout << M1 << std::endl;
+    M1.toString();
     //M1 == M2;
 
     // P.swap(P1);
