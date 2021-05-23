@@ -218,6 +218,8 @@ public:
         return container[index];
     }
 
+
+    //Removing the specific key and its value from Container
     void remove(T1 key) {
         
         int index; // storing the index of the key to be removed
@@ -252,6 +254,7 @@ public:
         std::cout << container[index].getKey() << " " << container[index].getValue() << std::endl;
     }
 
+    //Making container = 0;
     void clear(){
         int newSize = 0;
         myPair<T1, T2> *temp = new myPair<T1, T2> [size];
@@ -260,6 +263,7 @@ public:
         container = temp;
     }
 
+    //TO get all container keys
     void getContainerKeys(){
         T1 *temp = new T1[getSize()];
         for(int i = 0; i < getSize();i++){
@@ -272,6 +276,8 @@ public:
         
     }
 
+
+    //To check whether Map is full or not
     bool isFull(){
         if(getSize() == MAX_SIZE){
             return true;
@@ -282,6 +288,7 @@ public:
         return true;
     }
 
+    //To get all container Values
     void getContainerValue(){
         T2 *temp = new T2[getSize()];
         for(int i = 0; i < getSize();i++){
@@ -303,6 +310,8 @@ public:
         }
         return container[1];
     }
+
+    //Friend Functions
     template <typename t1, typename t2>
     friend std::ostream & operator <<(std::ostream &out, const myMap<t1, t2> &map);
     template <typename _t1, typename _t2>
@@ -312,6 +321,7 @@ public:
     template <typename t1, typename t2>
     friend void operator !=(myMap<t1, t2> &map_, myMap<t1,t2> &map_s);
 
+    //Destructor
     ~myMap() {
         if (container != nullptr){
             delete[] container;
