@@ -120,9 +120,13 @@ private:
 
     // object passed is _map
 public:
+
+    void init(){
+        container = new myPair<T1, T2>[size];
+    }
     myMap() {
         size = 0;
-        container = new myPair<T1,T2>[size];
+        container = nullptr;
     }
 
     myMap(myMap& _map) {
@@ -134,8 +138,11 @@ public:
         size = 0;
     }
 
+    //Inserting value and Key
     void insert(myPair<T1, T2>& pr, int index) {
-
+        if(size == 0){
+            init();
+        }
         bool keyCheck = true;
         size++;
         increaseSize(container, size);
@@ -178,6 +185,7 @@ public:
         return size;
     }
 
+    //Operator to return reference of that Key
     T2 operator [] (T1 k){
 
         bool isFound = false;
@@ -201,6 +209,8 @@ public:
         }
         return container[0].myPair<T1, T2>::getValue();
     }
+
+    //Dynamically increasing Size of Container
     void increaseSize(myPair<T1,T2>*& arr, int oldSize) {
         int n = oldSize;
         myPair<T1,T2>* tempArr = new myPair<T1,T2>[n];
